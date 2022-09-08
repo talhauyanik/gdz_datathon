@@ -170,4 +170,29 @@ def plot_importance(model, features, X, save=False):
     if save:
         plt.savefig('importances.png')
 
+def target_graph_with_cat(dataframe,column,target):
+    nuni = dataframe[column].nunique()
+    uni = dataframe[column].unique()
+
+    plots = nuni+1
+    rowsize = nuni+4
+    fig, axs = plt.subplots(plots, figsize=(9,rowsize))
+    fig.suptitle(f'{column} VE {target}')
+
+    row = 1
+    
+    axs[0].plot(dataframe[target] )
+    axs[0].set_title(target)
+    
+    for i in uni:
+        ax = row
+
+        axs[ax].set_title(i)
+        c = [1  if o==i else 0 for o in dataframe[column]]
+        axs[ax].plot(c)
+        
+        row +=1
+        
+    fig.tight_layout() 
+
 
